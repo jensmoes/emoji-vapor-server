@@ -1,6 +1,8 @@
 # Emoji Server using Vapor
 
-A server example providing random emojis using [Swift OpenAPI](https://github.com/apple/swift-openapi-generator)
+A server example providing random emojis using [Swift OpenAPI](https://github.com/apple/swift-openapi-generator).
+
+It is purposefully strict about input so that different responses can be triggered depending on the input.
 
 ## How to run
 

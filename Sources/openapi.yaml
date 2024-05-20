@@ -64,7 +64,7 @@ components:
                     type: string
         ErrorCode:
             type: integer
-            enum: #[0,1,2]
+            enum:
                 - 0 #No emoji (get: none received, post: none available)
                 - 1 #Emoji already exists
                 - 2 #More than one emoji submitted
