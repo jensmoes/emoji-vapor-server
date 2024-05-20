@@ -1,0 +1,71 @@
+openapi: '3.1.0'
+info:
+    title: EmojiService
+    version: 1.0.0
+servers:
+    - url: https://troest.com/api
+      description: Random emoji service deployment
+paths:
+    /emoji:
+        get:
+            operationId: getEmoji
+            responses:
+                '200':
+                    description: A success response with a random emoji
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Emoji'
+                '400':
+                    description: No emojis found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SubmitError'
+        post:
+            operationId: setEmoji
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Emoji'
+            responses:
+                '201':
+                    description: Successfully created new emoji
+                '400':
+                    description: Error creating emoji
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SubmitError'
+
+components:
+    schemas:
+        Emoji:
+            type: object
+            properties:
+                emoji:
+                    type: string
+                source:
+                    type: string
+            required:
+                - emoji
+                - source
+        SubmitError:
+            type: object
+            required:
+                - code
+                - description
+            properties:
+                code:
+                    $ref: '#/components/schemas/ErrorCode'
+                description:
+                    type: string
+        ErrorCode:
+            type: integer
+            enum: #[0,1,2]
+                - 0 #No emoji (get: none received, post: none available)
+                - 1 #Emoji already exists
+                - 2 #More than one emoji submitted
+                - 3 #Submitted charactor is not an emoji
